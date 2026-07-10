@@ -1,19 +1,14 @@
 import React, {useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../services/auth/auth.context.jsx";
-import Loading from './Loading.jsx';
 import { EntityContext } from '../services/entities/entity.context.jsx';
 
 
 const Header = () => {
 
-    const {user, loading} = useContext(AuthContext);
-    const {search, setSearch} = useContext(EntityContext);
     const navigate = useNavigate();
-
-    if(loading){
-        return <Loading />
-    }
+    const {user} = useContext(AuthContext);
+    const {search, setSearch} = useContext(EntityContext);
 
   return (
     <div className="sticky top-0 bg-white shadow-md z-10">
