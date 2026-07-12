@@ -38,7 +38,7 @@ const Home = () => {
 
                 <div className="max-w-2xl mx-auto space-y-4">
 
-                    {(search ? filteredEntities : entities).map((entity) => (
+                    {(search && filteredEntities?.length ? filteredEntities : entities).map((entity) => (
                         <EntityCard
                             key={entity._id}
                             entity={entity}

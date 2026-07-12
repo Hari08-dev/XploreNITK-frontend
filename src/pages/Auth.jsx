@@ -42,7 +42,7 @@ const Auth = () => {
 
             </div>
 
-            <div className="mt-24">
+            <div className="mt-24 w-full">
 
                 <GoogleBtn />
 

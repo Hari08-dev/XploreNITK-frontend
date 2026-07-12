@@ -1,6 +1,8 @@
 import {createContext, useState, useEffect} from 'react'
 import {getCurrentUser} from './auth.api.js'
 
+
+
 export const AuthContext = createContext()
 
 export const AuthProvider = ({children}) => {
@@ -12,7 +14,6 @@ export const AuthProvider = ({children}) => {
             try {
                 setLoading(true);
                 const response = await getCurrentUser();
-                console.log(response);
                 setUser(response.user);
             } catch (err) {
                 console.log(err);
