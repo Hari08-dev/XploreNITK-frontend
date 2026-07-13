@@ -9,7 +9,7 @@ import Loading from "./Loading.jsx";
 
 const EntityCard = ({ entity }) => {
     const { user, loading: authLoading } = useContext(AuthContext);
-    const { loading } = useContext(EntityContext);
+    const { loading, aiSearch } = useContext(EntityContext);
     const { handleToggleFav } = useEntity();
 
     const openMaps = () => {
@@ -86,7 +86,7 @@ const EntityCard = ({ entity }) => {
                     Navigate
                 </button>
 
-                {entity.reason && (
+                {aiSearch && entity.reason && (
                     <div className="mt-4 pt-3 border-t border-gray-200">
                         <div className="flex items-start gap-2">
                             <span className="text-lg">✨</span>

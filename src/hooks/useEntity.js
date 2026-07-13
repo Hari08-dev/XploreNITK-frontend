@@ -7,7 +7,7 @@ import { askAi } from "../services/search/search.api.js";
 export const useEntity = () => {
 
     const { setUser, setLoading } = useContext(AuthContext);
-    const {search, setLoading: setELoading, setEntities} = useContext(EntityContext);
+    const { setLoading: setELoading, setDisplayedEntities, setAiSearch, entities} = useContext(EntityContext);
 
     const handleToggleFav = async(id) => {
         try{
@@ -21,18 +21,39 @@ export const useEntity = () => {
         }
     }
 
+    const handleSearch = (search) => {
+        const filteredEntities = entities.filter((entity) => {
+            if (!search.trim()) {
+                setDisplayedEntities(entities);
+                setAiSearch(false);
+                return;
+            }
+            const query = search.toLowerCase();
+
+            return (
+                    entity.name?.toLowerCase().includes(query) ||
+                    entity.category?.toLowerCase().includes(query) ||
+                    entity.location?.toLowerCase().includes(query) ||
+                    entity.description?.toLowerCase().includes(query)
+                );
+        });
+        filteredEntities.length ? setDisplayedEntities(filteredEntities) : setDisplayedEntities(entities);
+        setAiSearch(false);
+    }
+
     const handleAskAi = async(query, entities) => {
         try {
             setELoading(true);
             const results = await askAi(query, entities);
-            setEntities(results);
+            setDisplayedEntities(results);
+            setAiSearch(true);
         } catch(err){
-            throw err;
+            console.log(err);
         } finally {
             setELoading(false);
         }
     }
 
-    return { handleToggleFav, handleAskAi }
+    return { handleToggleFav, handleAskAi, handleSearch }
 
 }

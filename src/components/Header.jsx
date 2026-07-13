@@ -8,9 +8,9 @@ import Loading from "./Loading.jsx";
 
 const Header = () => {
     const navigate = useNavigate();
-    const { handleAskAi } = useEntity();
+    const { handleAskAi, handleSearch } = useEntity();
     const { user, loading: aLoading } = useContext(AuthContext);
-    const { entities, search, setSearch } = useContext(EntityContext);
+    const { entities, search, setSearch, loading: eLoading } = useContext(EntityContext);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const Header = () => {
         }
     }
 
-    if(aLoading){
+    if(aLoading || eLoading){
         return <Loading />
     }
 
@@ -57,7 +57,7 @@ const Header = () => {
                         type="text"
                         placeholder="Search by name, category or location..."
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => {setSearch(e.target.value); handleSearch(e.target.value);}}
                         className="flex-1 rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 

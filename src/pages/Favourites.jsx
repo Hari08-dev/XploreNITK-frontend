@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { EntityContext } from "../services/entities/entity.context.jsx";
 import { AuthContext } from "../services/auth/auth.context.jsx";
 import EntityCard from "../components/EntityCard.jsx";
@@ -14,6 +14,10 @@ const Favorites = () => {
 
     if (loading || entityLoading) {
         return <Loading />;
+    }
+
+    if(!user){
+        return <Navigate to='/auth' replace />
     }
 
     const favoriteEntities = entities.filter((entity) =>

@@ -9,6 +9,8 @@ export const EntityProvider = ({children}) => {
     const [entities, setEntities] = useState([]);
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
+    const [displayedEntities, setDisplayedEntities] = useState([]);
+    const [aiSearch, setAiSearch] = useState(false);
 
     useEffect(()=>{
         const showEntities = async() => {
@@ -16,6 +18,7 @@ export const EntityProvider = ({children}) => {
                 setLoading(true);
                 const response = await getAllEntities();
                 setEntities(response);
+                setDisplayedEntities(response);
             } catch(err){
                 console.log(err);
             } finally {
@@ -23,10 +26,10 @@ export const EntityProvider = ({children}) => {
             }
         }
         showEntities();
-    }, [user]);
+    }, []);
 
     return(
-        <EntityContext.Provider value={{entities, setEntities, search, setSearch, loading, setLoading}}>
+        <EntityContext.Provider value={{entities, setEntities, search, setSearch, loading, setLoading, aiSearch, setAiSearch, displayedEntities, setDisplayedEntities}}>
             {children}
         </EntityContext.Provider>
     )
