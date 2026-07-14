@@ -10,9 +10,9 @@ const Favorites = () => {
     const navigate = useNavigate();
 
     const { user, loading } = useContext(AuthContext);
-    const { entities, loading: entityLoading } = useContext(EntityContext);
+    const { entities, loading: eLoading } = useContext(EntityContext);
 
-    if (loading || entityLoading) {
+    if (loading || eLoading) {
         return <Loading />;
     }
 

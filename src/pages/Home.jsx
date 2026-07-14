@@ -8,15 +8,15 @@ import Loading from "../components/Loading.jsx";
 import {useEntity} from '../hooks/useEntity.js'
 
 const Home = () => {
-    const { user, loading: authLoading} = useContext(AuthContext);
+    const { user, loading: aLoading } = useContext(AuthContext);
     const { entities, search, loading, setDisplayedEntities, aiSearch, setAiSearch, displayedEntities } = useContext(EntityContext);
     const {handleSearch} = useEntity();
 
-    if(loading || authLoading){
-      return ( <Loading /> );
+    if(aLoading || loading){
+        return <Loading />
     }
 
-    if (!user) {
+    if(!user){
         return <Navigate to='/auth' replace />
     }
 

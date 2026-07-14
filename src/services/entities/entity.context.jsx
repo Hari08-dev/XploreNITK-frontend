@@ -26,7 +26,7 @@ export const EntityProvider = ({children}) => {
             }
         }
         showEntities();
-    }, []);
+    }, [user]);
 
     return(
         <EntityContext.Provider value={{entities, setEntities, search, setSearch, loading, setLoading, aiSearch, setAiSearch, displayedEntities, setDisplayedEntities}}>

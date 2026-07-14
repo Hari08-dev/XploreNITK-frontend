@@ -19,7 +19,9 @@ const Profile = () => {
         }
     };
 
-    if (loading) return <Loading />;
+    if (loading){
+        return <Loading />
+    }
 
     if (!user) {
         return <Navigate to="/auth" replace />;

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { AuthContext } from "../services/auth/auth.context.jsx";
 import { EntityContext } from "../services/entities/entity.context.jsx";
@@ -9,7 +9,7 @@ import Loading from "./Loading.jsx";
 const Header = () => {
     const navigate = useNavigate();
     const { handleAskAi, handleSearch } = useEntity();
-    const { user, loading: aLoading } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const { entities, search, setSearch, loading: eLoading } = useContext(EntityContext);
 
     const handleSubmit = async(e) => {
@@ -21,7 +21,7 @@ const Header = () => {
         }
     }
 
-    if(aLoading || eLoading){
+    if(loading || eLoading){
         return <Loading />
     }
 

@@ -3,13 +3,12 @@ import { Heart } from "lucide-react";
 import { AuthContext } from "../services/auth/auth.context";
 import { useEntity } from "../hooks/useEntity.js"
 import { EntityContext } from "../services/entities/entity.context.jsx";
-import Loading from "./Loading.jsx";
 
 
 
 const EntityCard = ({ entity }) => {
-    const { user, loading: authLoading } = useContext(AuthContext);
-    const { loading, aiSearch } = useContext(EntityContext);
+    const { user } = useContext(AuthContext);
+    const { aiSearch } = useContext(EntityContext);
     const { handleToggleFav } = useEntity();
 
     const openMaps = () => {
@@ -20,10 +19,6 @@ const EntityCard = ({ entity }) => {
     };
 
     const isFavorite = user?.favorites?.includes(entity._id) ?? false;
-
-    if(loading || authLoading){
-        return <Loading />
-    }
 
     return (
         <div className="relative bg-white rounded-xl shadow-md overflow-hidden">

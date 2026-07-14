@@ -6,8 +6,8 @@ import { askAi } from "../services/search/search.api.js";
 
 export const useEntity = () => {
 
-    const { setUser, setLoading } = useContext(AuthContext);
-    const { setLoading: setELoading, setDisplayedEntities, setAiSearch, entities} = useContext(EntityContext);
+    const { setUser } = useContext(AuthContext);
+    const { setLoading, setDisplayedEntities, setAiSearch, entities} = useContext(EntityContext);
 
     const handleToggleFav = async(id) => {
         try{
@@ -23,7 +23,7 @@ export const useEntity = () => {
 
     const handleSearch = (search) => {
         const filteredEntities = entities.filter((entity) => {
-            if (!search.trim()) {
+            if (!search.trim().length) {
                 setDisplayedEntities(entities);
                 setAiSearch(false);
                 return;
@@ -43,14 +43,14 @@ export const useEntity = () => {
 
     const handleAskAi = async(query, entities) => {
         try {
-            setELoading(true);
+            setLoading(true);
             const results = await askAi(query, entities);
             setDisplayedEntities(results);
             setAiSearch(true);
         } catch(err){
             console.log(err);
         } finally {
-            setELoading(false);
+            setLoading(false);
         }
     }
 
