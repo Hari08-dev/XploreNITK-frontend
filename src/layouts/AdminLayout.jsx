@@ -1,8 +1,22 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Sidebar from "../components/admin/Sidebar.jsx";
 import Navbar from "../components/admin/Navbar.jsx";
+import { useContext } from "react";
+import { AuthContext } from "../services/auth/auth.context.jsx";
+import Loading from "../components/Loading.jsx";
 
 const AdminLayout = () => {
+
+    const {user, loading} = useContext(AuthContext);
+
+    if(loading){
+        return <Loading />
+    }
+
+    if(!user || user.role !== 'admin'){
+        return <Navigate to='/' replace />
+    }
+
     return (
         <div className="min-h-screen bg-[#09090B] text-white">
 

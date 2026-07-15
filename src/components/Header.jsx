@@ -9,8 +9,8 @@ import Loading from "./Loading.jsx";
 const Header = () => {
     const navigate = useNavigate();
     const { handleAskAi, handleSearch } = useEntity();
-    const { user, loading } = useContext(AuthContext);
-    const { entities, search, setSearch, loading: eLoading } = useContext(EntityContext);
+    const {user} = useContext(AuthContext);
+    const { entities, search, setSearch, loading } = useContext(EntityContext);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const Header = () => {
         }
     }
 
-    if(loading || eLoading){
+    if(loading){
         return <Loading />
     }
 

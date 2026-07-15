@@ -10,7 +10,6 @@ const api = axios.create({
 export const getDashboard = async () => {
     try{
         const res = await api.get("/dashboard");
-        console.log(res.data);
         return res.data;
     } catch(err){
         console.log(err);
@@ -21,41 +20,66 @@ export const getDashboard = async () => {
 // Entities
 
 export const getEntities = async () => {
-    const res = await api.get("/entities");
-    return res.data.entities;
+    try{
+        const res = await api.get("/entities");
+        return res.data.entities;
+    } catch(err){
+        console.log(err);
+    }
 };
 
 export const createEntity = async (entity) => {
-    const res = await api.post("/entities", entity);
-    return res.data;
+    try{
+        const res = await api.post("/entities", entity);
+        return res.data;
+    } catch(err){
+        console.log(err);
+    }
 };
 
 export const updateEntity = async (id, entity) => {
-    const res = await api.put(`/entities/${id}`, entity);
-    return res.data;
+    try{
+        const res = await api.put(`/entities/${id}`, entity);
+        return res.data;
+    } catch(err){
+        console.log(err);
+    }
 };
 
 export const deleteEntity = async (id) => {
-    const res = await api.delete(`/entities/${id}`);
-    return res.data;
+    try{
+        const res = await api.delete(`/entities/${id}`);
+        return res.data;
+    } catch(err){
+        console.log(err);
+    }
 };
 
 // Users
 
 export const getUsers = async()=>{
-
-    const res = await api.get("/users");
-
-    return res.data.users;
-
+    try{
+        const res = await api.get("/users");
+        return res.data.users;
+    } catch(err){
+        console.log(err);
+    }
 };
 
 export const updateUserRole = async(id,role)=>{
-    const res = await api.patch(`/users/${id}`, {role});
-    return res.data;
+    try{
+        const res = await api.put(`/users/${id}`, {role});
+        return res.data;
+    } catch(err){
+        console.log(err);
+    }
 };
 
 export const deleteUser = async (id) => {
-    const res = await api.delete(`/users/${id}`);
-    return res.data;
+    try{
+        const res = await api.delete(`/users/${id}`);
+        return res.data;
+    } catch(err){
+        console.log(err);
+    }  
 };

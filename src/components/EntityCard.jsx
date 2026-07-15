@@ -3,22 +3,32 @@ import { Heart } from "lucide-react";
 import { AuthContext } from "../services/auth/auth.context";
 import { useEntity } from "../hooks/useEntity.js"
 import { EntityContext } from "../services/entities/entity.context.jsx";
+import Loading from "./Loading.jsx";
 
 
 
 const EntityCard = ({ entity }) => {
     const { user } = useContext(AuthContext);
-    const { aiSearch } = useContext(EntityContext);
+    const { aiSearch, loading } = useContext(EntityContext);
     const { handleToggleFav } = useEntity();
 
     const openMaps = () => {
+
         window.open(
-            `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(entity.location)}`,
+
+            `https://www.google.com/maps/dir/?api=1&destination=${entity.coordinates.lat},${entity.coordinates.lng}`,
+
             "_blank"
+
         );
+
     };
 
     const isFavorite = user?.favorites?.includes(entity._id) ?? false;
+
+    if(loading){
+        return <Loading />
+    }
 
     return (
         <div className="relative bg-white rounded-xl shadow-md overflow-hidden">
@@ -56,22 +66,26 @@ const EntityCard = ({ entity }) => {
                         {entity.name}
                     </h2>
 
-                    <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full capitalize">
+                    <span
+                        className={`rounded-full px-4 py-2 text-sm ${
+                            entity.status === "Open"
+                                ? "bg-green-500/30 text-green-700"
+                                : "bg-red-500/30 text-red-700"
+                        }`}
+                    >
+
                         {entity.status}
+
                     </span>
 
                 </div>
 
-                <p className="text-blue-600 text-sm mt-1">
+                <p className="mt-1 text-sm font-medium text-slate-500">
                     {entity.category}
                 </p>
 
                 <p className="text-gray-600 mt-3">
                     {entity.description}
-                </p>
-
-                <p className="mt-3 font-medium">
-                    📍 {entity.location}
                 </p>
 
                 <button

@@ -19,7 +19,7 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
 
-    const {stats, loading, recentEntities, topTrendingPlace} = useContext(AdminContext);
+    const {stats, loading, recentEntities, topTrendingPlaces} = useContext(AdminContext);
 
     if(loading){
         return <Loading />
@@ -54,7 +54,7 @@ const Dashboard = () => {
                 <StatCard
                     title="Users"
                     value={stats.users}
-                    subtitle="+12 this month"
+                    subtitle= {`+${stats.usersThisMonth} this month`}
                     icon={Users}
                     color="from-blue-500 to-cyan-500"
                 />
@@ -81,79 +81,74 @@ const Dashboard = () => {
 
             <section className="grid gap-6 xl:grid-cols-3">
 
-                {/* Trending */}
+                {/* Top Trending Places */}
 
-                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
 
-                    <img
-                        src={topTrendingPlace.image}
-                        alt={topTrendingPlace.name}
-                        className="w-full h-48 object-cover"
-                    />
+                    <div className="flex items-center gap-3 mb-6">
 
-                    <div className="p-7">
+                        <TrendingUp
+                            className="text-green-400"
+                            size={24}
+                        />
 
-                        <div className="flex items-center gap-3">
+                        <h2 className="text-xl font-semibold">
+                            Top Trending Places
+                        </h2>
 
-                            <TrendingUp
-                                className="text-green-400"
-                                size={24}
-                            />
+                    </div>
 
-                            <h2 className="text-xl font-semibold">
-                                Trending Place
-                            </h2>
+                    <div className="space-y-4">
 
-                        </div>
+                        {topTrendingPlaces.length === 0 ? (
 
-                        <h1 className="mt-6 text-3xl font-bold">
-                            {topTrendingPlace.name}
-                        </h1>
+                            <p className="text-zinc-400">
+                                No favourites yet.
+                            </p>
 
-                        <p className="mt-2 text-zinc-400">
-                            {topTrendingPlace.category}
-                        </p>
+                        ) : (
 
-                        <div className="mt-4 flex items-center gap-2 text-zinc-400">
+                            topTrendingPlaces.map((place, index) => (
 
-                            <MapPinned size={18} />
+                                <div
+                                    key={place.name}
+                                    className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3"
+                                >
 
-                            <span>{topTrendingPlace.location}</span>
+                                    <div className="flex items-center gap-4">
 
-                        </div>
+                                        <span className="text-lg font-bold text-zinc-400 w-6">
+                                            #{index + 1}
+                                        </span>
 
-                        <div className="mt-8 flex items-center justify-between">
+                                        <div>
 
-                            <div className="flex items-center gap-2">
+                                            <h3 className="font-semibold">
+                                                {place.name}
+                                            </h3>
 
-                                <Heart
-                                    className="text-red-500 fill-red-500"
-                                    size={20}
-                                />
+                                        </div>
 
-                                <span className="text-xl font-semibold">
-                                    {topTrendingPlace.favoriteCount}
-                                </span>
+                                    </div>
 
-                                <span className="text-zinc-500">
-                                    favourites
-                                </span>
+                                    <div className="flex items-center gap-2">
 
-                            </div>
+                                        <Heart
+                                            className="text-red-500 fill-red-500"
+                                            size={18}
+                                        />
 
-                            <span
-                                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                    topTrendingPlace.status === "open"
-                                        ? "bg-green-500/20 text-green-400"
-                                        : topTrendingPlace.status === "closed"
-                                        ? "bg-red-500/20 text-red-400"
-                                        : "bg-yellow-500/20 text-yellow-400"
-                                }`}
-                            >
-                                {topTrendingPlace.status}
-                            </span>
+                                        <span className="font-semibold">
+                                            {place.favoriteCount}
+                                        </span>
 
-                        </div>
+                                    </div>
+
+                                </div>
+
+                            ))
+
+                        )}
 
                     </div>
 
@@ -201,25 +196,7 @@ const Dashboard = () => {
 
                                     </h3>
 
-                                    <p className="mt-1 text-sm text-zinc-400">
-
-                                        {entity.category}
-
-                                    </p>
-
                                 </div>
-
-                                <span
-                                    className={`rounded-full px-4 py-2 text-sm ${
-                                        entity.status === "Open"
-                                            ? "bg-green-500/20 text-green-400"
-                                            : "bg-red-500/20 text-red-400"
-                                    }`}
-                                >
-
-                                    {entity.status}
-
-                                </span>
 
                             </div>
 

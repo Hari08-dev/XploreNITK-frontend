@@ -2,26 +2,24 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Camera, Save, User, Mail } from "lucide-react";
 import { AuthContext } from "../services/auth/auth.context";
+import { useAuth } from "../hooks/useAuth";
 
 const UpdateProfile = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    const {handleUpdateUser} = useAuth();
 
     const [name, setName] = useState(user?.name || "");
     const [avatar, setAvatar] = useState(user?.avatar || "");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // TODO:
-        // await updateProfile({ name, avatar });
-
-        console.log({
-            name,
-            avatar,
-        });
-
-        navigate("/profile");
+        try{
+            await handleUpdateUser(user._id, { name, avatar });
+            navigate("/profile");
+        } catch(err){
+            console.log(err);
+        }
     };
 
     return (

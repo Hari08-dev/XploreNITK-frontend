@@ -2,7 +2,8 @@ import { useState } from "react";
 import {
     Pencil,
     Trash2,
-    MapPin
+    MapPin,
+    Clock,
 } from "lucide-react";
 
 import DeleteModal from "./DeleteModal.jsx";
@@ -28,6 +29,26 @@ const EntityTable = ({
         setShowDelete(false);
 
         reload();
+
+    };
+
+    const formatTodayTiming = (timings = []) => {
+
+        const today = new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+        });
+
+        const schedule = timings.find(
+            (time) => time.day === today
+        );
+
+        if (!schedule || schedule.closed) {
+
+            return "Closed Today";
+
+        }
+
+        return `${schedule.open} - ${schedule.close}`;
 
     };
 
@@ -77,7 +98,7 @@ const EntityTable = ({
 
                             <th className="text-left">
 
-                                Status
+                                Today's Hours
 
                             </th>
 
@@ -95,21 +116,32 @@ const EntityTable = ({
 
                         {
 
-                            entities.map(entity => (
+                            entities.map((entity) => (
 
                                 <tr
-
                                     key={entity._id}
-
-                                    className="border-t border-white/5 hover:bg-white/5"
-
+                                    className="border-t border-white/5 hover:bg-white/5 transition"
                                 >
 
                                     <td className="px-6 py-5">
 
-                                        <div className="font-semibold">
+                                        <div className="flex items-center gap-4">
 
-                                            {entity.name}
+                                            <img
+                                                src={entity.image}
+                                                alt={entity.name}
+                                                className="w-14 h-14 rounded-xl object-cover"
+                                            />
+
+                                            <div>
+
+                                                <p className="font-semibold">
+
+                                                    {entity.name}
+
+                                                </p>
+
+                                            </div>
 
                                         </div>
 
@@ -122,32 +154,38 @@ const EntityTable = ({
                                     </td>
 
                                     <td>
+                                        <div>
+                                            <label>Latitude</label>
 
-                                        <div className="flex items-center gap-2">
-
-                                            <MapPin size={16}/>
-
-                                            {entity.location}
+                                            <input
+                                                type="number"
+                                                step="any"
+                                                name="lat"
+                                            />
 
                                         </div>
 
+                                        <div>
+
+                                            <label>Longitude</label>
+
+                                            <input
+                                                type="number"
+                                                step="any"
+                                                name="lng"
+                                            />
+                                        </div>
                                     </td>
 
                                     <td>
 
-                                        <span
+                                        <div className="flex items-center gap-2 text-zinc-300">
 
-                                            className={`rounded-full px-3 py-1 text-sm ${
-                                                entity.status === "open"
-                                                    ? "bg-green-500/20 text-green-400"
-                                                    : "bg-red-500/20 text-red-400"
-                                            }`}
+                                            <Clock size={16} />
 
-                                        >
+                                            {formatTodayTiming(entity.timings)}
 
-                                            {entity.status}
-
-                                        </span>
+                                        </div>
 
                                     </td>
 
@@ -156,7 +194,6 @@ const EntityTable = ({
                                         <div className="flex justify-center gap-3">
 
                                             <button
-
                                                 onClick={() => {
 
                                                     setSelected(entity);
@@ -164,17 +201,14 @@ const EntityTable = ({
                                                     setShowEdit(true);
 
                                                 }}
-
-                                                className="rounded-xl bg-blue-600 p-3"
-
+                                                className="rounded-xl bg-blue-600 p-3 hover:bg-blue-700 transition"
                                             >
 
-                                                <Pencil size={18}/>
+                                                <Pencil size={18} />
 
                                             </button>
 
                                             <button
-
                                                 onClick={() => {
 
                                                     setSelected(entity);
@@ -182,12 +216,10 @@ const EntityTable = ({
                                                     setShowDelete(true);
 
                                                 }}
-
-                                                className="rounded-xl bg-red-600 p-3"
-
+                                                className="rounded-xl bg-red-600 p-3 hover:bg-red-700 transition"
                                             >
 
-                                                <Trash2 size={18}/>
+                                                <Trash2 size={18} />
 
                                             </button>
 
@@ -212,15 +244,10 @@ const EntityTable = ({
                 showDelete &&
 
                 <DeleteModal
-
                     title="Delete Entity"
-
                     message={`Delete "${selected.name}"?`}
-
                     onClose={() => setShowDelete(false)}
-
                     onConfirm={handleDelete}
-
                 />
 
             }
@@ -230,13 +257,9 @@ const EntityTable = ({
                 showEdit &&
 
                 <EntityModal
-
                     entity={selected}
-
                     close={() => setShowEdit(false)}
-
                     reload={reload}
-
                 />
 
             }

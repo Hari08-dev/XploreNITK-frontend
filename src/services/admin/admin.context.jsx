@@ -5,16 +5,17 @@ import { AuthContext } from "../auth/auth.context.jsx";
 export const AdminContext = createContext();
 
 export const AdminProvider = ({ children }) => {
-    const { user } = useContext(AuthContext);
+
+    const {user} = useContext(AuthContext);
 
     const [stats, setStats] = useState({
-        users: 0,
-        entities: 0,
-        favorites: 0,
-    });
+                                    users: 0,
+                                    entities: 0,
+                                    favorites: 0,
+                                });
 
     const [recentEntities, setRecentEntities] = useState([]);
-    const [topTrendingPlace, setTopTrendingPlace] = useState({});
+    const [topTrendingPlaces, setTopTrendingPlaces] = useState([]);
 
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +30,7 @@ export const AdminProvider = ({ children }) => {
 
                 setStats(res.stats);
                 setRecentEntities(res.recentEntities);
-                setTopTrendingPlace(res.topTrendingPlace);
+                setTopTrendingPlaces(res.topTrendingPlaces);
 
             } catch (err) {
                 console.error(err);
@@ -50,8 +51,8 @@ export const AdminProvider = ({ children }) => {
                 recentEntities,
                 setRecentEntities,
 
-                topTrendingPlace,
-                setTopTrendingPlace,
+                topTrendingPlaces,
+                setTopTrendingPlaces,
 
                 loading,
                 setLoading

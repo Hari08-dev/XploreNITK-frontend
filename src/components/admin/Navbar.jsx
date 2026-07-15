@@ -1,9 +1,11 @@
 import { Search, Bell, CalendarDays } from "lucide-react";
 import { useContext } from "react";
 import { AuthContext } from "../../services/auth/auth.context.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
+    const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
     const today = new Date().toLocaleDateString("en-US", {
@@ -40,41 +42,16 @@ const Navbar = () => {
 
                 <div className="flex items-center gap-5">
 
-                    {/* Search */}
-
-                    <div className="relative hidden lg:block">
-
-                        <Search
-                            size={18}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
-                        />
-
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="w-80 rounded-2xl border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm outline-none transition-all duration-300 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                        />
-
-                    </div>
-
-                    {/* Notification */}
-
-                    <button className="relative rounded-2xl border border-white/10 bg-white/5 p-3 transition-all duration-300 hover:bg-white/10">
-
-                        <Bell size={20} />
-
-                        <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-red-500" />
-
-                    </button>
-
                     {/* Profile */}
 
-                    <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2">
+                    <div onClick={()=>{navigate('/profile')}} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2">
 
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-lg font-bold">
-
-                            {user?.name?.charAt(0).toUpperCase()}
-
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 p-0.5">
+                            <img
+                                src={user?.avatar}
+                                alt={user?.name}
+                                className="h-full w-full rounded-full object-cover"
+                            />
                         </div>
 
                         <div className="hidden md:block">

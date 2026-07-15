@@ -8,17 +8,24 @@ import AdminLayout from "./layouts/AdminLayout.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import ManageEntities from "./pages/admin/ManageEntities.jsx";
 import Users from "./pages/admin/Users.jsx";
+import Protected from "./layouts/Protected.jsx";
+import { AdminProvider } from "./services/admin/admin.context.jsx";
 
 function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/update" element={<UpdateProfile />} />
-            <Route path="/favorites" element={<Favorites />} />
 
-            <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/" element={<Protected />}>
+                <Route index element={<Home />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="profile/update" element={<UpdateProfile />} />
+                <Route path="favorites" element={<Favorites />} />
+            </Route>
+
+            <Route path="/admin" element={<AdminProvider>
+                                            <AdminLayout />
+                                          </AdminProvider>}>
                 <Route index element={<Dashboard />} />
                 <Route path="entities" element={<ManageEntities />} />
                 <Route path="users" element={<Users />} />

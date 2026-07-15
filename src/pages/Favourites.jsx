@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { EntityContext } from "../services/entities/entity.context.jsx";
 import { AuthContext } from "../services/auth/auth.context.jsx";
 import EntityCard from "../components/EntityCard.jsx";
@@ -9,15 +9,11 @@ import { Heart, ArrowLeft } from "lucide-react";
 const Favorites = () => {
     const navigate = useNavigate();
 
-    const { user, loading } = useContext(AuthContext);
-    const { entities, loading: eLoading } = useContext(EntityContext);
+    const { user } = useContext(AuthContext);
+    const { entities, loading } = useContext(EntityContext);
 
-    if (loading || eLoading) {
+    if (loading) {
         return <Loading />;
-    }
-
-    if(!user){
-        return <Navigate to='/auth' replace />
     }
 
     const favoriteEntities = entities.filter((entity) =>

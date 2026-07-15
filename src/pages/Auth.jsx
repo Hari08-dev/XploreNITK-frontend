@@ -7,12 +7,12 @@ import GoogleBtn from "../components/GoogleBtn.jsx";
 const Auth = () => {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) {
-    return <Loading />;
+  if(loading){
+    return <Loading />
   }
 
-  if (user) {
-    return <Navigate to="/" replace />;
+  if(user){
+    return <Navigate to='/' replace />
   }
 
   return (

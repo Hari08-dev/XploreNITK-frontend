@@ -13,19 +13,11 @@ const Profile = () => {
     const Logout = async () => {
         try {
             await handleLogout();
-            navigate("/auth", { replace: true });
+            return <Navigate to='/auth' replace />;
         } catch (err) {
             console.error(err);
         }
     };
-
-    if (loading){
-        return <Loading />
-    }
-
-    if (!user) {
-        return <Navigate to="/auth" replace />;
-    }
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -156,6 +148,18 @@ const Profile = () => {
                         </button>
 
                     </div>
+
+                    {/* Admin Dashboard */}
+
+                    {user.role === "admin" && (
+                        <button
+                            onClick={() => navigate("/admin")}
+                            className="mt-8 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl flex justify-center items-center gap-2 font-semibold transition"
+                        >
+                            <Home size={20} />
+                            Admin Dashboard
+                        </button>
+                    )}
 
                     {/* Logout */}
 

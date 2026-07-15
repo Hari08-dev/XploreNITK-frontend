@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import { AuthContext } from "../services/auth/auth.context";
-import { EntityContext } from "../services/entities/entity.context";
-import { logout, getCurrentUser, updateUser, Auth} from "../services/auth/auth.api";
+import { AuthContext } from "../services/auth/auth.context.jsx";
+import { EntityContext } from "../services/entities/entity.context.jsx";
+import { logout, updateMe, Auth} from "../services/auth/auth.api.js";
 
 export const useAuth = () => {
     const {user, setUser, loading, setLoading} = useContext(AuthContext);
@@ -16,21 +16,6 @@ export const useAuth = () => {
             setSearch("");
         } catch (error) {
             console.error("Logout error:", error);
-            throw error; // Rethrow the error to be handled in the calling function
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleGetCurrentUser = async () => {
-        setLoading(true);
-        try {
-            const response = await getCurrentUser();
-            setUser(response.user);
-            return response;
-        } catch (error) {
-            console.error("Get current user error:", error);
-            throw error; // Rethrow the error to be handled in the calling function
         } finally {
             setLoading(false);
         }
@@ -39,12 +24,10 @@ export const useAuth = () => {
     const handleUpdateUser = async (id, userData) => {
         setLoading(true);
         try {
-            const response = await updateUser(id, userData);
+            const response = await updateMe(id, userData);
             setUser(response.user);
-            return response;
         } catch (error) {
             console.error("Update user error:", error);
-            throw error;
         } finally {
             setLoading(false);
         }
@@ -57,12 +40,11 @@ export const useAuth = () => {
             setUser(response.user);
         } catch(error){
             console.log(error);
-            throw error;
         } finally{
             setLoading(false);
         }
     }
 
-    return { handleLogout, handleGetCurrentUser, handleUpdateUser, handleAuth };
+    return { handleLogout, handleUpdateUser, handleAuth };
 
 }

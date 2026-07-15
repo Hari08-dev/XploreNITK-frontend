@@ -1,5 +1,5 @@
 import {createContext, useState, useEffect} from 'react'
-import {getCurrentUser} from './auth.api.js'
+import {getMe} from './auth.api.js'
 
 
 
@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
         const getUser = async () => {
             try {
                 setLoading(true);
-                const response = await getCurrentUser();
+                const response = await getMe();
                 setUser(response.user);
             } catch (err) {
                 console.log(err);

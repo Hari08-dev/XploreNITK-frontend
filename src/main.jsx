@@ -5,18 +5,15 @@ import { BrowserRouter } from 'react-router-dom'
 import { EntityProvider } from './services/entities/entity.context.jsx'
 import { AuthProvider } from './services/auth/auth.context.jsx'
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { AdminProvider } from './services/admin/admin.context.jsx'
 
 createRoot(document.getElementById('root')).render(
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <AuthProvider>
         <EntityProvider>
-            <AdminProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </AdminProvider>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </EntityProvider>
-    </AuthProvider>
+      </AuthProvider>
     </GoogleOAuthProvider>
 );

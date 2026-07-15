@@ -1,23 +1,16 @@
-import { useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useContext } from "react";
 import { AuthContext } from "../services/auth/auth.context.jsx";
 import { EntityContext } from "../services/entities/entity.context.jsx";
 import Header from "../components/Header.jsx";
 import EntityCard from "../components/EntityCard.jsx";
 import Loading from "../components/Loading.jsx";
-import {useEntity} from '../hooks/useEntity.js'
 
 const Home = () => {
-    const { user, loading: aLoading } = useContext(AuthContext);
-    const { entities, search, loading, setDisplayedEntities, aiSearch, setAiSearch, displayedEntities } = useContext(EntityContext);
-    const {handleSearch} = useEntity();
+    const { user } = useContext(AuthContext);
+    const { loading, displayedEntities } = useContext(EntityContext);
 
-    if(aLoading || loading){
+    if(loading){
         return <Loading />
-    }
-
-    if(!user){
-        return <Navigate to='/auth' replace />
     }
 
     return (

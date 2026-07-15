@@ -45,7 +45,7 @@ export const useEntity = () => {
         try {
             setLoading(true);
             const results = await askAi(query, entities);
-            setDisplayedEntities(results);
+            setDisplayedEntities(results.finalResults);
             setAiSearch(true);
         } catch(err){
             console.log(err);
