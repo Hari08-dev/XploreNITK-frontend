@@ -1,6 +1,6 @@
 # XploreNITK – AI-Powered Campus Navigation & Discovery Platform
 
-**XploreNITK** is an interactive, full-stack campus navigation and facility discovery web application designed for students, faculty, and first-time visitors at **National Institute of Technology Karnataka (NITK), Surathkal**. 
+**XploreNITK-frontend** is the interactive React web client powering the campus navigation and facility discovery platform at **National Institute of Technology Karnataka (NITK), Surathkal**. 
 
 Featuring natural-language AI search, Google OAuth 2.0 authentication, real-time facility operating hours, and live Google Maps coordinate navigation.
 
@@ -9,6 +9,13 @@ Featuring natural-language AI search, Google OAuth 2.0 authentication, real-time
 ![NodeJS](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=nodedotjs)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb)
 ![Redis](https://img.shields.io/badge/Redis-Cache-DC382D?style=for-the-badge&logo=redis)
+
+---
+
+## 🔗 Associated Repositories
+
+- 🌐 **Frontend Repository**: [Hari08-dev/XploreNITK-frontend](https://github.com/Hari08-dev/XploreNITK-frontend)
+- ⚙️ **Backend Repository**: [Hari08-dev/XploreNITK-backend](https://github.com/Hari08-dev/XploreNITK-backend)
 
 ---
 
